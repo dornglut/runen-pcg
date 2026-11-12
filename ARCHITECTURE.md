@@ -20,14 +20,13 @@ A generator result is not automatically an accepted game world, a spatial reserv
 runen-graph / runen-spatial / runen-sdf   (only when separately justified)
                      |
                      v
-         runen-pcg capability
-                     |
-          +----------+----------+
-          v                     v
-   Runenwerk adapters     Chimera integration
-          |
-          v
-      Runen Lab applications (when relevant)
+          runen-pcg capability
+                   |
+        +----------+-----------+
+        |          |           |
+        v          v           v
+    Runenwerk    Chimera     Runen Lab
+    integration  integration experiments
 ```
 
 This is an intended direction, not a claim of current dependencies or accepted cross-repository adoption. The base library must remain independently usable without Bevy, Runenwerk or Chimera dependencies. Engine-specific plugins may be downstream integrations only when concrete pressure warrants them.
