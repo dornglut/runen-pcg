@@ -6,10 +6,21 @@
 cargo validate
 ```
 
-The local `xtask` checks required files, product identity and licensing, formatting, locked workspace tests, Clippy, rustdoc, Git whitespace, and worktree cleanliness.
+The local `xtask` checks repository identity/licensing, Rust formatting,
+locked tests, Clippy, rustdoc, Git whitespace and clean worktree preservation.
+The pinned GitHub workflow executes the command on the exact reviewed head.
 
-The pinned GitHub workflow invokes this command on the exact pull-request head. A new head requires new validation and review.
+## Public conformance
 
-## Current coverage
+`tests/connected_graph.rs` uses the standalone public API and covers:
 
-This is a repository bootstrap, not a generation implementation. No procedural-generation conformance, seed replay, or independent consumer tests exist yet. Each accepted capability must add its own behavioral and downstream evidence before release.
+- pinned algorithm ID and independent golden replay vectors;
+- connectivity, simple canonical edges, cycle rank and measured branching;
+- seed reproducibility and representative variation;
+- zero and single-node behavior, infeasible cycles, edge budgets and finite
+  node/edge resource limits.
+
+These tests prove the first graph-formation capability, not application
+ratification, historical Runenwerk replay, spatial geometry, runtime integration,
+or arbitrary-scale performance. A changed feature head requires new CI evidence
+and critical review.
