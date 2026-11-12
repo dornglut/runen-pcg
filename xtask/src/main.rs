@@ -19,6 +19,9 @@ const REQUIRED_FILES: &[&str] = &[
     "TESTING.md",
     "rust-toolchain.toml",
     "src/lib.rs",
+    "src/connected.rs",
+    "spec/connected-graph-v1.md",
+    "tests/connected_graph.rs",
     "xtask/Cargo.toml",
     "xtask/src/main.rs",
 ];
