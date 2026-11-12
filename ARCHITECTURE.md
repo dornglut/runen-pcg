@@ -1,42 +1,42 @@
-# RunenPCG architecture
+# Architecture
 
-## Framework boundary
+## Responsibility
 
-RunenPCG is a proposed standalone semantic owner for reusable, engine-independent procedural-generation capabilities, *not* a general framework for graph ownership, 3D terrain, world state, game content, job scheduling, or engine plugins.
+RunenPCG is intended to provide reusable, engine-independent generation algorithms and their typed inputs, deterministic/versioned behavior, bounded execution, diagnostics, and results.
 
-The first concrete capability and public contract require separate issue-owned design, conformance evidence, and consumer review. The initial candidate is generic graph-based generation, informed by Runenwerk's existing deterministic cave-topology behavior and Chimera Signal's independent procedural Site needs. Similarity does not authorize copying existing source.
+Capabilities receive their own public contracts when justified and accepted. The bootstrap defines no generation API.
 
-## Responsibility and authority
+## Ownership boundaries
 
-Reusable generation algorithms may define their own typed requests, deterministic/versioned algorithm behavior, bounded evaluation, observable errors, and verifiable results. Such semantics must be accepted per capability; this bootstrap defines none of them.
+| Owner | Responsibility |
+| --- | --- |
+| RunenPCG | Reusable procedural-generation algorithms and their contracts |
+| RunenGraph | Graph identities, relationships, and graph analysis |
+| RunenSpatial | Spatial addressing and availability semantics |
+| RunenSDF | Signed-field mathematics |
+| Runenwerk | Authored sources, candidate/product admission, engine integration |
+| Chimera Signal | Site/gameplay semantics, 3D realization, physics, server/client authority |
 
-RunenGraph retains its graph/relationship semantics. RunenSpatial retains spatial-addressing semantics. RunenSDF retains signed-field mathematics. Runenwerk retains authored source, cave/document ratification, product admission/publication, engine execution, and integration. Chimera retains Site/gameplay semantics, spatial realization, physics, and server/client authority.
+Generation produces candidate data; it does not authorize a world change or publish a runtime product.
 
-A generator result is not automatically an accepted game world, a spatial reservation, or a published runtime product.
-
-## Dependency direction
+## Dependencies
 
 ```text
-runen-graph / runen-spatial / runen-sdf   (only when separately justified)
-                     |
-                     v
-          runen-pcg capability
-                   |
-        +----------+-----------+
-        |          |           |
-        v          v           v
-    Runenwerk    Chimera     Runen Lab
-    integration  integration experiments
+RunenGraph / RunenSpatial / RunenSDF (as justified)
+                    |
+                    v
+                 RunenPCG
+                    |
+                    v
+       Runenwerk / Chimera / Runen-Lab
 ```
 
-This is an intended direction, not a claim of current dependencies or accepted cross-repository adoption. The base library must remain independently usable without Bevy, Runenwerk or Chimera dependencies. Engine-specific plugins may be downstream integrations only when concrete pressure warrants them.
+Peer-framework dependencies are optional and capability-specific. RunenPCG must not depend on its applications, Bevy, or Runenwerk's engine. Engine plugins and adapters remain consumer-owned.
 
-## Physical repository shape
+## Evolution
 
-One product crate (`runen-pcg`) plus the repository-local `xtask`. There is no product implementation yet. Do not pre-create packages, modules, external dependencies, shared adapters, or architecture taxonomies without a concrete accepted need.
+The initial repository has one library crate and a local `xtask`. Do not add generic trait systems, plugin infrastructure, or crate splits without concrete evidence.
 
-## Evolution and transfer
+Runenwerk's existing cave-topology generator motivates the first investigation, but its source remains Runenwerk-owned until an accepted extraction. A transfer must preserve replay compatibility, qualify independent consumers, and retire duplicate implementations.
 
-Public compatibility, seed replay, algorithm versions and deterministic scope must be defined before a real generator contract is accepted. Future extraction from Runenwerk must meet Dornglut Engineering's single-authority transfer and consumer cutover gates; there must not be two independently writable copies of the same generator.
-
-Repository-local authority does not itself add RunenPCG to the accepted Runen-family registry. That remains an Engineering decision.
+Dornglut Engineering owns cross-repository framework recognition; this document establishes only the local boundary.

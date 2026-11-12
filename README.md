@@ -1,38 +1,27 @@
 # RunenPCG
 
-RunenPCG is Dornglut's proposed standalone, engine-neutral Rust framework for reusable procedural-generation capabilities. It is not a Bevy plugin or a Runenwerk subsystem.
+RunenPCG is an engine-independent Rust library for reusable procedural generation.
 
-## Maturity
+## Status
 
-**Bootstrap only.** The repository currently defines no accepted procedural-generation algorithms, constraints, candidate format, public semantic API, or compatibility promise. A crate identity and validation baseline do not establish consumer readiness.
+**Bootstrap only.** No generation algorithms or public semantic API are implemented yet. The first capability under investigation is deterministic graph generation for independent consumers such as Runenwerk and Chimera Signal.
 
-The initial independent use cases to investigate are the existing Runenwerk cave-topology generator and Chimera Signal's procedural Site work. Neither source transfer nor consumer adoption is authorized by this bootstrap.
+## Scope
 
-## Ownership boundary
+RunenPCG is intended to own generation algorithms and their input, determinism, failure, and result contracts. It may compose RunenGraph, RunenSpatial, or RunenSDF when a capability requires them.
 
-RunenPCG is intended to own reusable procedural-generation methods and their algorithm-specific input, determinism, failure, and result contracts when independently justified.
+Applications retain authoring rules, gameplay meaning, world admission, geometry, scheduling, persistence, and runtime integration. RunenPCG is not an engine plugin.
 
-It does **not** own graph relationship semantics (RunenGraph), spatial addressing and availability (RunenSpatial), signed-field mathematics (RunenSDF), Runenwerk authored source/product ratification, Chimera Site/gameplay meaning, engine lifecycle, asset persistence, geometry/collision activation, or cross-framework orchestration.
+See [Architecture](ARCHITECTURE.md) for ownership and dependency rules.
 
-Dependencies on peer frameworks are introduced by proven capability-specific needs; none are required for this bootstrap. No universal generator/constraint trait, execution service, or port-and-adapter runtime is implied.
-
-Cross-repository Runen-family recognition is separately owned by Dornglut Engineering and is not conferred by a bootstrap file.
-
-## Repository authority
-
-- [Architecture](ARCHITECTURE.md) — local boundary and dependency rules.
-- [Agent instructions](AGENTS.md) — executor constraints.
-- [Testing](TESTING.md) — canonical merge-readiness checks.
-- [Bootstrap provenance](BOOTSTRAP.md) — template origin and historical licensing.
-- [Licensing](LICENSING.md) — public and separate possible commercial paths.
-- [Dornglut Engineering](https://github.com/dornglut/engineering/blob/main/architecture/runen-family.md) — cross-repository framework membership.
-
-## Validation
+## Development
 
 ```text
 cargo validate
 ```
 
+See [Testing](TESTING.md), [Agent guide](AGENTS.md), and [Bootstrap provenance](BOOTSTRAP.md). Organization policies: [Contributing](https://github.com/dornglut/.github/blob/main/CONTRIBUTING.md) and [Security](https://github.com/dornglut/.github/blob/main/SECURITY.md).
+
 ## License
 
-Current RunenPCG source is available under the [GNU General Public License v3.0-only](LICENSE). [Licensing](LICENSING.md) describes the separate possible commercial path and the historical Apache-2.0 template grant.
+[GPL-3.0-only](LICENSE). See [Licensing](LICENSING.md) for historical template rights and possible separate commercial terms.

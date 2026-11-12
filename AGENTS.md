@@ -1,26 +1,18 @@
-# RunenPCG agent guide
+# Agent guide
 
-Read README.md, ARCHITECTURE.md, TESTING.md, BOOTSTRAP.md and LICENSING.md before modifying this repository. Follow current Dornglut Engineering standards and the GPT Web GitHub procedure when applicable.
+Read [README.md](README.md), [ARCHITECTURE.md](ARCHITECTURE.md), and [TESTING.md](TESTING.md). Follow current Dornglut Engineering standards and any accepted owning issue.
 
-## Scope
+## Rules
 
-This repository is bootstrapping an engine-neutral procedural-generation framework. There is no accepted procedural-generation public semantic API yet.
+- Keep generation semantics independent of applications and engine lifecycles.
+- Preserve each framework's semantic ownership. No Runenwerk source transfer, framework dependency, plugin, or public API without accepted scope.
+- Do not introduce speculative abstractions, shared runtimes, packages, or duplicate implementations.
+- Preserve licensing and historical provenance in [LICENSING.md](LICENSING.md) and [BOOTSTRAP.md](BOOTSTRAP.md).
+- Keep `cargo validate` repository-owned, CI read-only and pinned, and unsafe Rust forbidden.
 
-- Keep one coherent owner per semantic invariant and distinguish generator results from consumer acceptance.
-- Do not copy or migrate Runenwerk's cave generator, create a Bevy/Runenwerk plugin, add a RunenGraph dependency, or invent a general generation runtime without a separately accepted issue.
-- Do not introduce framework-wide generator/constraint trait systems, backend abstractions, speculative crate splits, or source mirrors.
-- Do not make RunenPCG depend on Runenwerk, Chimera Signal, Runen Lab, Bevy, or other applications.
-- Preserve GPL-3.0-only product representation, historical template provenance, and owner-only contribution policy until separately accepted changes.
-- Keep `cargo validate` repository-owned; CI must remain an immutable pinned, read-only caller.
-- Keep `unsafe_code = "forbid"` and the stable minimal toolchain. Do not claim an MSRV without evidence.
+## Delivery
 
-## Required workflow
-
-1. Recheck current accepted main, owning issue, applicable Engineering authority and overlapping writers.
-2. Read exact source and dependent public contracts before deciding implementation scope.
-3. Prepare one complete candidate from an exact accepted base, with no branch-visible partial multi-file changes.
-4. Validate through `cargo validate` using an available checked-out executor or exact-head hosted CI.
-5. Critically review the entire accepted-base-to-feature-head diff; record ACCEPT or HOLD and reconcile findings.
-6. Merge only the exact reviewed and validated head through the accepted repository controls. Consumer migrations and cross-repository adoption remain separate.
-
-BOOTSTRAP.md is historical provenance, not ongoing template authority.
+1. Verify the accepted base, owning issue, relevant source, and concurrent writers.
+2. Build one complete candidate off-ref; inspect the full authorized diff before publication.
+3. Validate the exact feature head through repository CI (and locally when a suitable executor exists).
+4. Critically review the complete change, resolve findings, and merge only under accepted repository controls.

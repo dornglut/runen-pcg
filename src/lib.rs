@@ -1,6 +1,3 @@
-//! RunenPCG engine-neutral procedural-generation framework.
+//! Engine-independent procedural-generation library.
 //!
-//! This bootstrap establishes repository identity and validation only.
-//! No generation algorithms, public semantic types, or consumer adapters are
-//! accepted yet. Future capabilities are specified and implemented by their
-//! independently authorized owning work.
+//! No generation API is implemented in this repository bootstrap.

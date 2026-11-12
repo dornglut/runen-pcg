@@ -1,30 +1,28 @@
-# RunenPCG bootstrap provenance
+# Bootstrap provenance
 
-This file records the initial one-time template origin and RunenPCG bootstrap decisions. It is not active template guidance.
+RunenPCG was initialized from `dornglut/rust-framework-template`.
 
-## Source and initial revision
+- Initial RunenPCG commit: `318a8f6c1c49aa0d2c7bd1bd4a48cdaf819b1887`
+- Initial root tree: `1e6bf16483d0018419d421dc9886e9ca988af123`
+- Matching template main revision: `3c3a48fb33b2a116fac26d0747c3145ad524991d`
 
-RunenPCG was initialized with `dornglut/rust-framework-template` content. The initial RunenPCG commit is `318a8f6c1c49aa0d2c7bd1bd4a48cdaf819b1887` with root tree `1e6bf16483d0018419d421dc9886e9ca988af123`.
+The matching tree establishes source correspondence, not the mechanism of repository creation.
 
-The template `main` revision `3c3a48fb33b2a116fac26d0747c3145ad524991d` was independently observed to have that same root tree. This is exact source-tree correspondence, not a claim about GitHub's internal template-generation event.
+## Identity
 
-## Repository identity
+| Property | Bootstrap choice |
+| --- | --- |
+| Repository | `dornglut/runen-pcg` |
+| Crate | `runen-pcg` / `runen_pcg`, version `0.0.0` |
+| Profile / lifecycle / contributions | `rust-framework` / `active` / `owner-only` (intended settings) |
+| Toolchain | Stable Rust, edition 2024, rustfmt and Clippy; no claimed MSRV |
+| Publication | `publish = false` |
+| Validation | `cargo validate`, root crate plus local `xtask` |
 
-- Repository: `dornglut/runen-pcg`
-- Root package/crate: `runen-pcg` / `runen_pcg`
-- Version: `0.0.0`; Rust 2024 edition; unpublished package
-- Intended profile/lifecycle/contribution: `rust-framework` / `active` / `owner-only`
-- Validation: `cargo validate` with one root package and one local `xtask`
-- Toolchain: stable Rust with minimal profile, rustfmt and Clippy; no unproved minimum supported Rust version
+The repository was created private; visibility and protection are managed separately.
 
-The repository was created private. Visibility and repository settings are managed separately from source bootstrap; this record does not grant permission to change them.
+## Licensing history
 
-## Historical licensing
+The initial template-origin revision carries its historical Apache-2.0 grant. The GPL-3.0-only product license applies prospectively and does not revoke earlier rights. See [LICENSING.md](LICENSING.md).
 
-The initial template-origin revision was made available under its Apache-2.0 license. The RunenPCG product-library representation changes prospectively to GPL-3.0-only. Historical Apache-2.0 rights granted for earlier revisions are not revoked or relabeled. See LICENSING.md.
-
-## Explicit boundaries
-
-No graph or procedural-generation semantics, source transfer, Runenwerk/Chimera consumer cutover, plugin, publication promise or Engineering framework-membership decision is established by bootstrap. Further work requires its own accepted scope.
-
-The template's active identity, Apache product-license claim and template validation branding are replaced. The original template remains an origin record, not an ongoing dependency.
+Bootstrap does not transfer source, establish generation behavior, or authorize consumer adoption. The template is historical provenance, not a continuing dependency.
