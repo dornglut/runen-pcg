@@ -1,103 +1,30 @@
-# Bootstrap procedure
+# RunenPCG bootstrap provenance
 
-This template is a one-time starting point. A generated repository must establish
-its own current authority before accepting substantive implementation.
+This file records the initial one-time template origin and RunenPCG bootstrap decisions. It is not active template guidance.
 
-## 1. Identity
+## Source and initial revision
 
-Replace the placeholder repository, package, crate, version, description, and
-repository metadata with the generated repository's accepted identity.
+RunenPCG was initialized with `dornglut/rust-framework-template` content. The initial RunenPCG commit is `318a8f6c1c49aa0d2c7bd1bd4a48cdaf819b1887` with root tree `1e6bf16483d0018419d421dc9886e9ca988af123`.
 
-Do not leave `rust-framework-template` as an active product identity.
+The template `main` revision `3c3a48fb33b2a116fac26d0747c3145ad524991d` was independently observed to have that same root tree. This is exact source-tree correspondence, not a claim about GitHub's internal template-generation event.
 
-## 2. Classification
+## Repository identity
 
-Resolve and record:
+- Repository: `dornglut/runen-pcg`
+- Root package/crate: `runen-pcg` / `runen_pcg`
+- Version: `0.0.0`; Rust 2024 edition; unpublished package
+- Intended profile/lifecycle/contribution: `rust-framework` / `active` / `owner-only`
+- Validation: `cargo validate` with one root package and one local `xtask`
+- Toolchain: stable Rust with minimal profile, rustfmt and Clippy; no unproved minimum supported Rust version
 
-- repository profile;
-- lifecycle;
-- contribution mode;
-- owning domain;
-- relationship to existing repositories.
+The repository was created private. Visibility and repository settings are managed separately from source bootstrap; this record does not grant permission to change them.
 
-Use the accepted organization vocabulary rather than inventing local property
-values.
+## Historical licensing
 
-## 3. Licensing
+The initial template-origin revision was made available under its Apache-2.0 license. The RunenPCG product-library representation changes prospectively to GPL-3.0-only. Historical Apache-2.0 rights granted for earlier revisions are not revoked or relabeled. See LICENSING.md.
 
-Select the product license class before substantive implementation.
+## Explicit boundaries
 
-Establish the required current `LICENSE`, package SPDX metadata, README license
-statement, and any required additional licensing documentation.
+No graph or procedural-generation semantics, source transfer, Runenwerk/Chimera consumer cutover, plugin, publication promise or Engineering framework-membership decision is established by bootstrap. Further work requires its own accepted scope.
 
-The template's Apache-2.0 license is the template's own current license; it is
-not a generic product-license choice.
-
-License changes are prospective. Historical grants remain historical evidence,
-and third-party material keeps its own license.
-
-## 4. Toolchain
-
-Resolve the generated repository's MSRV and toolchain from product evidence.
-
-Do not assume the template's current toolchain is the generated product's final
-MSRV. Update the package metadata and toolchain declaration together.
-
-## 5. Repository settings
-
-Establish the repository's accepted GitHub posture:
-
-- public or explicitly accepted visibility;
-- default branch `main`;
-- squash merge enabled;
-- merge commits disabled;
-- rebase merge disabled unless specifically justified;
-- merged head branches deleted;
-- normal changes through pull requests;
-- canonical validation required;
-- conversations resolved before merge;
-- force pushes and default-branch deletion blocked;
-- linear history preferred;
-- no meaningless solo-maintainer approval count;
-- applicable security controls enabled or recorded as platform deviations.
-
-## 6. Validation
-
-Keep `cargo validate` as the canonical command.
-
-Extend the local `xtask` only when the product has a demonstrated validation
-requirement. Product-specific checks remain repository-local and are not moved
-into shared CI.
-
-## 7. Downstream conformance
-
-When the framework exposes a public contract consumed by another repository,
-create an independent downstream conformance package or workload. Do not use
-the template itself as conformance evidence.
-
-## 8. Extraction and provenance
-
-If implementation is transferred from another repository, record:
-
-- source repository and accepted source revision;
-- source path or boundary;
-- ownership and licensing disposition;
-- transfer rationale and scope;
-- consumer migration boundary;
-- deviations introduced during extraction.
-
-The template does not grant authority to transfer source. Extraction remains
-owned by the accepted source and destination work.
-
-## 9. Deviations
-
-Record every intentional deviation from this template baseline in the generated
-repository's appropriate authority.
-
-Do not preserve obsolete template material merely for tree similarity.
-
-## Completion
-
-After these decisions are accepted, the template ceases to be relevant. The
-generated repository becomes the sole authority for its code, architecture,
-validation semantics, roadmap, releases, and compatibility.
+The template's active identity, Apache product-license claim and template validation branding are replaced. The original template remains an origin record, not an ongoing dependency.

@@ -1,4 +1,6 @@
-//! Placeholder library for the Rust framework bootstrap template.
+//! RunenPCG engine-neutral procedural-generation framework.
 //!
-//! Generated repositories replace this package identity and source during
-//! bootstrap. The template itself owns no product semantics.
+//! This bootstrap establishes repository identity and validation only.
+//! No generation algorithms, public semantic types, or consumer adapters are
+//! accepted yet. Future capabilities are specified and implemented by their
+//! independently authorized owning work.

@@ -1,77 +1,38 @@
-# Rust Framework Template
+# RunenPCG
 
-`dornglut/rust-framework-template` is a one-time bootstrap baseline for new
-Dornglut Rust framework repositories.
-
-It provides a minimal repository shape, repository-owned validation entrypoint,
-bootstrap guidance, and licensing/provenance rules. It is not a product,
-framework runtime, or ongoing synchronization authority.
+RunenPCG is Dornglut's proposed standalone, engine-neutral Rust framework for reusable procedural-generation capabilities. It is not a Bevy plugin or a Runenwerk subsystem.
 
 ## Maturity
 
-This repository is intentionally minimal bootstrap infrastructure. It proves a
-working repository shape and validation baseline; it does not define a product
-runtime or public framework API.
+**Bootstrap only.** The repository currently defines no accepted procedural-generation algorithms, constraints, candidate format, public semantic API, or compatibility promise. A crate identity and validation baseline do not establish consumer readiness.
 
-## Boundary
+The initial independent use cases to investigate are the existing Runenwerk cave-topology generator and Chimera Signal's procedural Site work. Neither source transfer nor consumer adoption is authorized by this bootstrap.
 
-The template owns only generic bootstrap infrastructure:
+## Ownership boundary
 
-- Rust package and workspace conventions;
-- root architecture, testing, and agent entrypoints;
-- one canonical `cargo validate` command;
-- a thin immutable CI caller;
-- bootstrap guidance for identity, ownership, licensing, toolchain, settings,
-  validation extensions, conformance, provenance, and deviations.
+RunenPCG is intended to own reusable procedural-generation methods and their algorithm-specific input, determinism, failure, and result contracts when independently justified.
 
-Generated repositories own their implementation, public API, architecture,
-dependencies, compatibility, releases, and product-specific validation.
+It does **not** own graph relationship semantics (RunenGraph), spatial addressing and availability (RunenSpatial), signed-field mathematics (RunenSDF), Runenwerk authored source/product ratification, Chimera Site/gameplay meaning, engine lifecycle, asset persistence, geometry/collision activation, or cross-framework orchestration.
 
-## Bootstrap
+Dependencies on peer frameworks are introduced by proven capability-specific needs; none are required for this bootstrap. No universal generator/constraint trait, execution service, or port-and-adapter runtime is implied.
 
-A repository created from this template must resolve its own:
+Cross-repository Runen-family recognition is separately owned by Dornglut Engineering and is not conferred by a bootstrap file.
 
-1. repository, package, and crate identity;
-2. profile, lifecycle, and contribution classification;
-3. public license class and required license files;
-4. product MSRV and toolchain;
-5. repository visibility, merge policy, branch protection, and security controls;
-6. canonical validation extensions;
-7. downstream conformance workload when a public framework contract exists;
-8. extraction and source provenance when applicable;
-9. every intentional deviation from this baseline.
+## Repository authority
 
-The template is irrelevant after bootstrap. Do not add synchronization or
-template-update machinery to generated repositories.
-
-See [BOOTSTRAP.md](BOOTSTRAP.md).
+- [Architecture](ARCHITECTURE.md) — local boundary and dependency rules.
+- [Agent instructions](AGENTS.md) — executor constraints.
+- [Testing](TESTING.md) — canonical merge-readiness checks.
+- [Bootstrap provenance](BOOTSTRAP.md) — template origin and historical licensing.
+- [Licensing](LICENSING.md) — public and separate possible commercial paths.
+- [Dornglut Engineering](https://github.com/dornglut/engineering/blob/main/architecture/runen-family.md) — cross-repository framework membership.
 
 ## Validation
 
-`cargo validate` is the single repository-owned validation command.
-
-It verifies the required template authority files, formatting, workspace tests,
-Clippy with warnings denied, rustdoc with warnings denied, Git whitespace, and
-unchanged repository state.
-
-CI invokes the same command through the accepted immutable
-`dornglut/github-workflows` reusable Rust validation workflow.
-
-See [TESTING.md](TESTING.md).
-
-## Architecture and policy
-
-- [Architecture](ARCHITECTURE.md)
-- [Testing](TESTING.md)
-- [Bootstrap](BOOTSTRAP.md)
-- [Agent guide](AGENTS.md)
-- [Organization contribution guidance](https://github.com/dornglut/.github/blob/main/CONTRIBUTING.md)
-- [Organization security policy](https://github.com/dornglut/.github/blob/main/SECURITY.md)
+```text
+cargo validate
+```
 
 ## License
 
-This template repository is available under the [Apache License 2.0](LICENSE).
-
-A generated repository must select its own product license before accepting
-substantive implementation. The template's Apache-2.0 license does not become
-the generated product's licensing authority.
+Current RunenPCG source is available under the [GNU General Public License v3.0-only](LICENSE). [Licensing](LICENSING.md) describes the separate possible commercial path and the historical Apache-2.0 template grant.

@@ -1,4 +1,4 @@
-# Testing and validation
+# RunenPCG testing and validation
 
 ## Canonical command
 
@@ -6,39 +6,16 @@
 cargo validate
 ```
 
-This command is implemented by the repository-local `xtask` and is the merge
-readiness baseline for this template.
+The repository-local `xtask` is the sole current validation authority. The immutable pinned shared CI workflow only invokes it.
 
-## Baseline checks
+## Current baseline
 
-Validation fails closed when:
+Validation checks required repository files, RunenPCG and GPL-3.0-only identity, absence of active template identity, Rust formatting, locked workspace tests, Clippy with warnings denied, rustdoc with warnings denied, Git whitespace and clean worktree preservation.
 
-- a required template authority file is missing;
-- Rust formatting is not clean;
-- workspace tests fail;
-- Clippy emits warnings;
-- rustdoc emits warnings;
-- `git diff --check` reports whitespace errors;
-- validation changes repository state.
+No generation capability, public conformance suite, historical seed replay, or independent consumer workload is implemented at bootstrap. Do not interpret the baseline as such proof.
 
-The validator starts from a clean repository and verifies that the repository
-remains unchanged after the checks.
+## Acceptance evidence
 
-## CI
+Repository-owned hosted CI must execute against the exact reviewed pull-request feature head. Changing that head invalidates previous check and review evidence. A future public procedural-generation contract requires behavior-focused, seed/version stability, resource-bound and independent downstream conformance evidence in addition to this baseline.
 
-The workflow in `.github/workflows/validation.yml` is intentionally thin. It
-pins the accepted `dornglut/github-workflows` reusable Rust validation workflow
-to an immutable commit and delegates meaning to `cargo +stable validate`.
-
-The shared workflow proves the exact caller feature head before validation and
-provisions stable plus any Cargo-declared `rust-version` values needed by the
-checked-out repository.
-
-## Local versus independent evidence
-
-Local validation is preparation. Pull-request acceptance requires independent
-repository-owned CI against the exact reviewed feature head.
-
-Product-specific target matrices, dependency policy, benchmarks, native/browser
-proofs, and downstream conformance workloads do not belong in this generic
-baseline.
+`cargo validate` must remain runnable without repository-writing credentials. Repo settings must require the canonical check before merge; CI success alone does not grant merge authorization.
