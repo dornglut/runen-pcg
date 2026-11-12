@@ -1,11 +1,16 @@
 use std::collections::{BTreeSet, VecDeque};
 
 use runen_pcg::{
-    ConnectedGraph, ConnectedGraphAlgorithm, ConnectedGraphRequest, GenerationError, Resource,
-    MAX_EDGES, MAX_NODES, generate_connected_graph,
+    ConnectedGraph, ConnectedGraphAlgorithm, ConnectedGraphRequest, GenerationError, MAX_EDGES,
+    MAX_NODES, Resource, generate_connected_graph,
 };
 
-fn request(node_count: u32, minimum_cycle_rank: u32, max_edges: u32, seed: u64) -> ConnectedGraphRequest {
+fn request(
+    node_count: u32,
+    minimum_cycle_rank: u32,
+    max_edges: u32,
+    seed: u64,
+) -> ConnectedGraphRequest {
     ConnectedGraphRequest {
         node_count,
         minimum_cycle_rank,
@@ -48,7 +53,10 @@ fn verify(graph: &ConnectedGraph, minimum_cycles: u32, max_edges: u32) {
     }
     assert!(reached.into_iter().all(|flag| flag));
     let cycles = edges.len() - (n - 1);
-    let branches = adjacency.iter().filter(|neighbors| neighbors.len() >= 3).count();
+    let branches = adjacency
+        .iter()
+        .filter(|neighbors| neighbors.len() >= 3)
+        .count();
     assert_eq!(cycles as u32, minimum_cycles);
     assert_eq!(graph.metrics().cycle_rank, cycles as u32);
     assert_eq!(graph.metrics().branching_vertices, branches as u32);
@@ -84,8 +92,17 @@ fn fixed_independent_golden_vectors() {
     assert_eq!(
         endpoints(&graph),
         [
-            (0, 1), (1, 3), (1, 5), (1, 6), (1, 7), (2, 4),
-            (2, 6), (3, 4), (4, 5), (4, 7), (6, 7)
+            (0, 1),
+            (1, 3),
+            (1, 5),
+            (1, 6),
+            (1, 7),
+            (2, 4),
+            (2, 6),
+            (3, 4),
+            (4, 5),
+            (4, 7),
+            (6, 7)
         ]
     );
     assert_eq!(graph.metrics().branching_vertices, 4);
@@ -107,8 +124,7 @@ fn generated_candidates_obey_independent_invariants() {
         let possible = n * (n - 1) / 2 - (n - 1);
         for cycles in 0..=possible.min(8) {
             for seed in [0, 1, 42, u64::MAX] {
-                let result =
-                    generate_connected_graph(request(n, cycles, 128, seed)).unwrap();
+                let result = generate_connected_graph(request(n, cycles, 128, seed)).unwrap();
                 verify(&result, cycles, 128);
             }
         }

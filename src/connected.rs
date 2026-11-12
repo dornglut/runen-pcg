@@ -114,8 +114,14 @@ pub enum Resource {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub enum GenerationError {
     InvalidNodeCount,
-    InfeasibleCycleRank { requested: u32, maximum: u64 },
-    InsufficientEdgeBudget { required: u64, limit: u32 },
+    InfeasibleCycleRank {
+        requested: u32,
+        maximum: u64,
+    },
+    InsufficientEdgeBudget {
+        required: u64,
+        limit: u32,
+    },
     ResourceLimit {
         resource: Resource,
         requested: u64,
@@ -129,7 +135,10 @@ impl fmt::Display for GenerationError {
         match self {
             Self::InvalidNodeCount => write!(f, "node count must be positive"),
             Self::InfeasibleCycleRank { requested, maximum } => {
-                write!(f, "cycle rank {requested} exceeds feasible maximum {maximum}")
+                write!(
+                    f,
+                    "cycle rank {requested} exceeds feasible maximum {maximum}"
+                )
             }
             Self::InsufficientEdgeBudget { required, limit } => {
                 write!(f, "{required} edges required, but the budget is {limit}")
@@ -217,8 +226,8 @@ fn spanning_tree_v1(node_count: u32, extra_edges: u32, seed: u64) -> Vec<Edge> {
 
     let mut edges = Vec::with_capacity(n - 1 + extra_edges as usize);
     for index in 1..n {
-        let parent = usize::try_from(rng.index(index as u64))
-            .expect("parent index within library bound");
+        let parent =
+            usize::try_from(rng.index(index as u64)).expect("parent index within library bound");
         edges.push(Edge::canonical(nodes[index], nodes[parent]));
     }
 
@@ -337,7 +346,10 @@ fn measure_and_verify(
         return Err(GenerationError::InternalInvariant);
     }
     let branching_vertices = u32::try_from(
-        adjacency.iter().filter(|neighbors| neighbors.len() >= 3).count(),
+        adjacency
+            .iter()
+            .filter(|neighbors| neighbors.len() >= 3)
+            .count(),
     )
     .map_err(|_| GenerationError::InternalInvariant)?;
     Ok(GraphMetrics {
