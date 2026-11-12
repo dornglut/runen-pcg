@@ -1,11 +1,10 @@
 [package]
-name = "rust-framework-template"
+name = "runen-pcg"
 version = "0.0.0"
 edition = "2024"
-rust-version = "1.93.0"
 license.workspace = true
-repository = "https://github.com/dornglut/rust-framework-template"
-description = "Reusable Rust framework bootstrap template"
+repository = "https://github.com/dornglut/runen-pcg"
+description = "Engine-neutral procedural-generation framework"
 publish = false
 
 [workspace]
@@ -14,7 +13,7 @@ members = ["xtask"]
 
 [workspace.package]
 edition = "2024"
-license = "Apache-2.0"
+license = "GPL-3.0-only"
 
 [lints]
 workspace = true

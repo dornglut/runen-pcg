@@ -14,6 +14,7 @@ const REQUIRED_FILES: &[&str] = &[
     "Cargo.lock",
     "Cargo.toml",
     "LICENSE",
+    "LICENSING.md",
     "README.md",
     "TESTING.md",
     "rust-toolchain.toml",
@@ -41,6 +42,7 @@ fn validate() -> Result<(), String> {
         .to_path_buf();
 
     validate_required_files(&root)?;
+    validate_product_identity(&root)?;
     let initial_state = git_status(&root)?;
     if !initial_state.is_empty() {
         return Err(format!(
@@ -79,6 +81,65 @@ fn validate() -> Result<(), String> {
         ));
     }
 
+    Ok(())
+}
+
+fn validate_product_identity(root: &Path) -> Result<(), String> {
+    let manifest = std::fs::read_to_string(root.join("Cargo.toml"))
+        .map_err(|error| format!("cannot read Cargo.toml: {error}"))?;
+    for expected in [
+        "name = \"runen-pcg\"",
+        "repository = \"https://github.com/dornglut/runen-pcg\"",
+        "license = \"GPL-3.0-only\"",
+        "publish = false",
+    ] {
+        if !manifest.contains(expected) {
+            return Err(format!("Cargo.toml lacks product identity: {expected}"));
+        }
+    }
+    if manifest.contains("rust-framework-template") || manifest.contains("rust-version") {
+        return Err("Cargo.toml retains template identity or unsupported MSRV".to_owned());
+    }
+
+    let license = std::fs::read_to_string(root.join("LICENSE"))
+        .map_err(|error| format!("cannot read LICENSE: {error}"))?;
+    if !license.contains("GNU GENERAL PUBLIC LICENSE")
+        || !license.contains("Version 3, 29 June 2007")
+    {
+        return Err("LICENSE is not the required GPLv3 text".to_owned());
+    }
+    let licensing = std::fs::read_to_string(root.join("LICENSING.md"))
+        .map_err(|error| format!("cannot read LICENSING.md: {error}"))?;
+    if !licensing.contains("GPL-3.0-only")
+        || !licensing.contains("Apache-2.0")
+        || !licensing.contains("historical")
+    {
+        return Err("LICENSING.md lacks current license or template provenance".to_owned());
+    }
+
+    for path in [
+        "README.md",
+        "AGENTS.md",
+        "ARCHITECTURE.md",
+        "TESTING.md",
+        ".github/workflows/validation.yml",
+        "src/lib.rs",
+    ] {
+        let content = std::fs::read_to_string(root.join(path))
+            .map_err(|error| format!("cannot read {path}: {error}"))?;
+        if content.contains("rust-framework-template")
+            || content.contains("Rust Framework Template")
+        {
+            return Err(format!("{path} retains active template identity"));
+        }
+    }
+    let workflow = std::fs::read_to_string(root.join(".github/workflows/validation.yml"))
+        .map_err(|error| format!("cannot read workflow: {error}"))?;
+    if !workflow.contains("name: RunenPCG Validation")
+        || !workflow.contains("name: Validate RunenPCG")
+    {
+        return Err("workflow lacks RunenPCG check identity".to_owned());
+    }
     Ok(())
 }
 

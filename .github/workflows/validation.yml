@@ -1,4 +1,4 @@
-name: Rust Framework Template Validation
+name: RunenPCG Validation
 
 on:
   pull_request:
@@ -13,10 +13,10 @@ permissions:
   contents: read
 
 concurrency:
-  group: rust-framework-template-validation-${{ github.workflow }}-${{ github.ref }}
+  group: runen-pcg-validation-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
   validate:
-    name: Validate framework template
+    name: Validate RunenPCG
     uses: dornglut/github-workflows/.github/workflows/reusable-rust-cargo-validate.yml@718f53a5601f4fc89d8a8b1deab89550d36b70a9

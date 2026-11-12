@@ -1,34 +1,18 @@
-# Rust Framework Template Agent Guide
+# Agent guide
 
-Start with `README.md`, `ARCHITECTURE.md`, `TESTING.md`, and `BOOTSTRAP.md`.
-
-## Scope
-
-This repository owns a generic, one-time bootstrap baseline for Dornglut Rust
-framework repositories. It does not own product behavior, product architecture,
-product dependencies, releases, or ongoing synchronization.
+Read [README.md](README.md), [ARCHITECTURE.md](ARCHITECTURE.md), and [TESTING.md](TESTING.md). Follow current Dornglut Engineering standards and any accepted owning issue.
 
 ## Rules
 
-- Keep the template generic and one-shot.
-- Do not add product-specific implementation or dependencies.
-- Do not copy sibling repository roadmaps, status, issues, or live Project state.
-- Do not create compatibility forwarders, aliases, mirrors, or synchronization
-  machinery.
-- Preserve one semantic authority for each concern.
-- Keep the canonical validation command as `cargo validate`.
-- Keep CI a thin read-only caller of repository-owned validation.
-- Resolve generated repository identity, license, MSRV, settings, conformance,
-  provenance, and deviations during bootstrap rather than freezing them here.
+- Keep generation semantics independent of applications and engine lifecycles.
+- Preserve each framework's semantic ownership. No Runenwerk source transfer, framework dependency, plugin, or public API without accepted scope.
+- Do not introduce speculative abstractions, shared runtimes, packages, or duplicate implementations.
+- Preserve licensing and historical provenance in [LICENSING.md](LICENSING.md) and [BOOTSTRAP.md](BOOTSTRAP.md).
+- Keep `cargo validate` repository-owned, CI read-only and pinned, and unsafe Rust forbidden.
 
-## Required workflow
+## Delivery
 
-1. Read the current repository authority and accepted Engineering standards.
-2. Keep changes bounded to the template's generic bootstrap purpose.
-3. Run `cargo validate` from a suitable checked-out Rust executor when one is
-   available; do not simulate local validation when the selected procedure lacks
-   local execution.
-4. Validate the exact feature head through repository-owned CI before acceptance.
-5. Merge only the exact reviewed head after reconciling current `main`.
-
-The template is not an ongoing authority for repositories generated from it.
+1. Verify the accepted base, owning issue, relevant source, and concurrent writers.
+2. Build one complete candidate off-ref; inspect the full authorized diff before publication.
+3. Validate the exact feature head through repository CI (and locally when a suitable executor exists).
+4. Critically review the complete change, resolve findings, and merge only under accepted repository controls.

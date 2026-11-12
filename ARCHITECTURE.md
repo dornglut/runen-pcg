@@ -1,49 +1,42 @@
 # Architecture
 
-## Boundary
+## Responsibility
 
-`rust-framework-template` is bootstrap infrastructure. Its purpose is to
-provide a minimal, reusable starting shape for a new Dornglut Rust framework
-repository.
+RunenPCG is intended to provide reusable, engine-independent generation algorithms and their typed inputs, deterministic/versioned behavior, bounded execution, diagnostics, and results.
 
-It owns no runtime behavior, public product contract, domain model, renderer,
-GPU subsystem, ECS, service, application, or product data.
+Capabilities receive their own public contracts when justified and accepted. The bootstrap defines no generation API.
 
-## Repository shape
+## Ownership boundaries
 
-The baseline consists of:
+| Owner | Responsibility |
+| --- | --- |
+| RunenPCG | Reusable procedural-generation algorithms and their contracts |
+| RunenGraph | Graph identities, relationships, and graph analysis |
+| RunenSpatial | Spatial addressing and availability semantics |
+| RunenSDF | Signed-field mathematics |
+| Runenwerk | Authored sources, candidate/product admission, engine integration |
+| Chimera Signal | Site/gameplay semantics, 3D realization, physics, server/client authority |
 
-- a tiny non-published root Rust library used to prove the package baseline;
-- a local `xtask` that owns canonical validation;
-- a thin immutable shared-workflow caller;
-- root agent, architecture, testing, and bootstrap documentation;
-- the repository's Apache-2.0 license.
+Generation produces candidate data; it does not authorize a world change or publish a runtime product.
 
-No empty taxonomy directories or product-specific modules are created.
-
-## Dependency direction
+## Dependencies
 
 ```text
-repository source
-    └── root package
-
-validation authority
-    └── xtask
-          └── cargo / git commands
-
-CI orchestration
-    └── dornglut/github-workflows
-          └── cargo +stable validate
+RunenGraph / RunenSpatial / RunenSDF (as justified)
+                    |
+                    v
+                 RunenPCG
+                    |
+                    v
+       Runenwerk / Chimera / Runen-Lab
 ```
 
-The reusable workflow orchestrates validation but does not define its meaning.
-The `xtask` is repository-local validation authority.
+Peer-framework dependencies are optional and capability-specific. RunenPCG must not depend on its applications, Bevy, or Runenwerk's engine. Engine plugins and adapters remain consumer-owned.
 
-## Generated repositories
+## Evolution
 
-A generated repository replaces the placeholder package identity and source,
-selects its own license and toolchain contract, establishes its repository
-settings, and extends validation only for proven product-specific requirements.
+The initial repository has one library crate and a local `xtask`. Do not add generic trait systems, plugin infrastructure, or crate splits without concrete evidence.
 
-After bootstrap, the template is not an architectural dependency and must not
-remain a synchronization authority.
+Runenwerk's existing cave-topology generator motivates the first investigation, but its source remains Runenwerk-owned until an accepted extraction. A transfer must preserve replay compatibility, qualify independent consumers, and retire duplicate implementations.
+
+Dornglut Engineering owns cross-repository framework recognition; this document establishes only the local boundary.
