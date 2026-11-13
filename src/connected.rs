@@ -26,9 +26,9 @@ impl ConnectedGraphAlgorithm {
 pub struct ConnectedGraphRequest {
     /// Number of graph nodes; at least one.
     pub node_count: u32,
-    /// Minimum independent cycle rank required in the connected output.
+    /// Minimum independent cycle rank; V1 generates exactly this many cycles.
     pub minimum_cycle_rank: u32,
-    /// Maximum number of output edges admitted by the caller.
+    /// Edge-count ceiling, not a target; V1 emits `node_count - 1 + minimum_cycle_rank`.
     pub max_edges: u32,
     /// Raw numeric seed; never implicitly sourced from the host.
     pub seed: u64,
@@ -368,5 +368,49 @@ impl SplitMix64 {
         value = (value ^ (value >> 30)).wrapping_mul(0xbf58_476d_1ce4_e5b9);
         value = (value ^ (value >> 27)).wrapping_mul(0x94d0_49bb_1331_11eb);
         (value ^ (value >> 31)) % bound
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+
+    #[test]
+    fn pair_rank_and_unrank_are_inverses_over_small_graphs() {
+        for node_count in 2_u32..=100 {
+            let mut expected_rank = 0_u64;
+            for first in 0..node_count {
+                for second in (first + 1)..node_count {
+                    assert_eq!(pair_rank(first, second, node_count), expected_rank);
+                    assert_eq!(
+                        pair_from_rank(expected_rank, node_count).endpoints(),
+                        (first, second)
+                    );
+                    expected_rank += 1;
+                }
+            }
+            assert_eq!(
+                expected_rank,
+                u64::from(node_count) * u64::from(node_count - 1) / 2
+            );
+        }
+    }
+
+    #[test]
+    fn excluded_pair_indices_map_to_every_remaining_pair() {
+        for node_count in 2_u32..=5 {
+            let pair_count = u64::from(node_count) * u64::from(node_count - 1) / 2;
+            for mask in 0_u64..(1_u64 << pair_count) {
+                let excluded: Vec<u64> = (0..pair_count)
+                    .filter(|&rank| mask & (1_u64 << rank) != 0)
+                    .collect();
+                let available = (0..pair_count)
+                    .filter(|&rank| mask & (1_u64 << rank) == 0);
+                for (index, expected_rank) in available.enumerate() {
+                    let index = u64::try_from(index).expect("bounded small-graph index");
+                    assert_eq!(skip_excluded(index, &excluded), expected_rank);
+                }
+            }
+        }
     }
 }

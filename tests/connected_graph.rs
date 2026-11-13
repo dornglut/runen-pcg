@@ -190,3 +190,47 @@ fn upper_node_boundary_is_finite_without_quadratic_allocation() {
     assert_eq!(graph.edge_count(), MAX_NODES as usize - 1);
     verify(&graph, 0, MAX_EDGES);
 }
+
+#[test]
+fn complete_small_graphs_remain_canonical_and_replayable() {
+    for node_count in 2..=12 {
+        let possible_edges = node_count * (node_count - 1) / 2;
+        let cycle_rank = possible_edges - (node_count - 1);
+        for seed in [0, 42, u64::MAX] {
+            let graph =
+                generate_connected_graph(request(node_count, cycle_rank, possible_edges, seed))
+                    .unwrap();
+            verify(&graph, cycle_rank, possible_edges);
+            assert_eq!(
+                graph.edge_count(),
+                usize::try_from(possible_edges).unwrap()
+            );
+        }
+    }
+}
+
+#[test]
+fn combined_resource_boundaries_and_nearly_complete_graphs_are_valid() {
+    let maximum_cycles = MAX_EDGES - (MAX_NODES - 1);
+    let maximum = generate_connected_graph(request(
+        MAX_NODES,
+        maximum_cycles,
+        MAX_EDGES,
+        u64::MAX,
+    ))
+    .unwrap();
+    assert_eq!(maximum.node_count(), MAX_NODES);
+    assert_eq!(maximum.edge_count(), usize::try_from(MAX_EDGES).unwrap());
+    verify(&maximum, maximum_cycles, MAX_EDGES);
+
+    // The allowed output reaches the edge cap while nearly filling all
+    // available node pairs. This exercises Floyd sampling near exhaustion.
+    let node_count = 182;
+    let total_pairs = node_count * (node_count - 1) / 2;
+    assert!(total_pairs > MAX_EDGES);
+    let cycle_rank = MAX_EDGES - (node_count - 1);
+    let dense =
+        generate_connected_graph(request(node_count, cycle_rank, MAX_EDGES, 42)).unwrap();
+    assert_eq!(dense.edge_count(), usize::try_from(MAX_EDGES).unwrap());
+    verify(&dense, cycle_rank, MAX_EDGES);
+}
