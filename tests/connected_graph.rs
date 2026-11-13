@@ -201,10 +201,7 @@ fn complete_small_graphs_remain_canonical_and_replayable() {
                 generate_connected_graph(request(node_count, cycle_rank, possible_edges, seed))
                     .unwrap();
             verify(&graph, cycle_rank, possible_edges);
-            assert_eq!(
-                graph.edge_count(),
-                usize::try_from(possible_edges).unwrap()
-            );
+            assert_eq!(graph.edge_count(), usize::try_from(possible_edges).unwrap());
         }
     }
 }
@@ -212,13 +209,8 @@ fn complete_small_graphs_remain_canonical_and_replayable() {
 #[test]
 fn combined_resource_boundaries_and_nearly_complete_graphs_are_valid() {
     let maximum_cycles = MAX_EDGES - (MAX_NODES - 1);
-    let maximum = generate_connected_graph(request(
-        MAX_NODES,
-        maximum_cycles,
-        MAX_EDGES,
-        u64::MAX,
-    ))
-    .unwrap();
+    let maximum =
+        generate_connected_graph(request(MAX_NODES, maximum_cycles, MAX_EDGES, u64::MAX)).unwrap();
     assert_eq!(maximum.node_count(), MAX_NODES);
     assert_eq!(maximum.edge_count(), usize::try_from(MAX_EDGES).unwrap());
     verify(&maximum, maximum_cycles, MAX_EDGES);
@@ -229,8 +221,7 @@ fn combined_resource_boundaries_and_nearly_complete_graphs_are_valid() {
     let total_pairs = node_count * (node_count - 1) / 2;
     assert!(total_pairs > MAX_EDGES);
     let cycle_rank = MAX_EDGES - (node_count - 1);
-    let dense =
-        generate_connected_graph(request(node_count, cycle_rank, MAX_EDGES, 42)).unwrap();
+    let dense = generate_connected_graph(request(node_count, cycle_rank, MAX_EDGES, 42)).unwrap();
     assert_eq!(dense.edge_count(), usize::try_from(MAX_EDGES).unwrap());
     verify(&dense, cycle_rank, MAX_EDGES);
 }

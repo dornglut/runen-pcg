@@ -404,8 +404,7 @@ mod tests {
                 let excluded: Vec<u64> = (0..pair_count)
                     .filter(|&rank| mask & (1_u64 << rank) != 0)
                     .collect();
-                let available = (0..pair_count)
-                    .filter(|&rank| mask & (1_u64 << rank) == 0);
+                let available = (0..pair_count).filter(|&rank| mask & (1_u64 << rank) == 0);
                 for (index, expected_rank) in available.enumerate() {
                     let index = u64::try_from(index).expect("bounded small-graph index");
                     assert_eq!(skip_excluded(index, &excluded), expected_rank);
